@@ -13,13 +13,9 @@ const messages = require('./backend/routes/api/messages');
 
 const app = express();
 
-// if (process.env.NODE_ENV === 'production') {
-//     app.use(express.static(path.join(__dirname, 'backend/build')));
-//
-//     app.get('/', (req, res) => {
-//         res.sendFile(path.join(__dirname, 'backend/build', 'index.html'));
-//     });
-// }
+app.get('/', (req, res) => {
+    res.render('index', {title: 'Notice Board', message: 'What are you doing here?'});
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'backend/views'));
