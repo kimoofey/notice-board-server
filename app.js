@@ -3,11 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const passport = require('passport');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const indexRouter = require('./backend/routes');
-const users = require('./backend/routes/api/users');
 const signup = require('./backend/routes/api/user');
 const messages = require('./backend/routes/api/messages');
 
@@ -29,11 +27,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'backend/public')));
-app.use(passport.initialize());
-require('./backend/config/passport')(passport);
 
 app.use('/', indexRouter);
-app.use('/api/users', users);
 app.use('/api/user', signup);
 app.use('/api/messages', messages);
 
