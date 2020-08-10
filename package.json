@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node backend/bin/server",
+    "start": "NODE_ENV=production node backend/bin/server",
     "start:dev": "nodemon backend/bin/server"
   },
   "dependencies": {
