@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
+const cors = require('cors');
 const indexRouter = require('./backend/routes');
 const signup = require('./backend/routes/api/user');
 const messages = require('./backend/routes/api/messages');
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'backend/public')));
 
+app.use(cors());
 app.use('/', indexRouter);
 app.use('/api/user', signup);
 app.use('/api/messages', messages);
