@@ -9,16 +9,10 @@ router.get('/', async (req, res) => {
         const result = await db.collection(messagesCollection).doc(req.query.groupChatId)
             .collection(req.query.groupChatId)
             .onSnapshot((snapshot) => {
-                // messages = snapshot.docChanges().map((change) => {
-                //     if (change.type === 'added') {
-                //         let data = change.doc.data();
-                //         return data;
-                //     }
-                // });
-                const messages = snapshot.docChanges().filter((change) => change.type === 'added').map((change) => change.doc.data());
-                    return res.status(200).json(messages);
+                return snapshot.docChanges().filter((change) => change.type === 'added').map((change) => change.doc.data());
                 },
             );
+        return res.status(200).json(result);
     } catch (error) {
         return res.status(500).send(error);
     }
