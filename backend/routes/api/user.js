@@ -67,7 +67,6 @@ router.put('/', async (req, res) => {
         if (req.body.description) {
             data.description = req.body.description;
         }
-        //need to check if values not undefined
         const response = await docRef.update(data);
         return res.status(200).json(response);
     } catch (error) {
@@ -134,6 +133,7 @@ router.post('/avatar', async (req, res) => {
     }
 });
 
+/* Auth for user*/
 router.post('/auth', async (req, res) => {
     try {
         const {body} = req;
