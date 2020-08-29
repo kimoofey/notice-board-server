@@ -28,6 +28,7 @@ Before start you need to have **[Git](https://git-scm.com/)**, **[Node JS](https
 
 ### Links
 [Dev server](https://web-notice-board-server-dev.herokuapp.com/)
+
 ---
 ### REST API description:
 
@@ -38,9 +39,9 @@ Before start you need to have **[Git](https://git-scm.com/)**, **[Node JS](https
 |URL|/api/user|
 |Method	|GET|
 |URL Parameters	||
-|Success Response|Code: 200 Content:{}|
+|Success Response|Code: 200<br> Content:[{<br>docId: string,<br>id: string,<br>name: string,<br>messages: array[],<br>URL: string,<br>description: string<br>}]|
 |Error Response|Code: 500|
-|Notes||
+|Notes| Response contain array of all users|
 
 |          |               |
 |----------|:-------------:|
@@ -48,9 +49,9 @@ Before start you need to have **[Git](https://git-scm.com/)**, **[Node JS](https
 |URL|/api/user|
 |Method	|POST|
 |URL Parameters	|Required:<br>Body: `email: string, password: string, nickname: string`|
-|Success Response|Code: 200 Content:{}|
+|Success Response|Code: 200<br>Content:{<br>docId: string,<br>id: string,<br>name: string,<br>email: string,<br>password: string,<br>URL: string,<br>description: string<br>}|
 |Error Response|Code: 500|
-|Notes||
+|Notes| Response contain information about user|
 
 |          |               |
 |----------|:-------------:|
@@ -60,7 +61,7 @@ Before start you need to have **[Git](https://git-scm.com/)**, **[Node JS](https
 |URL Parameters	|Required:<br>Body: `userId: string, docId: string, name: string, url: string, description: string`|
 |Success Response|Code: 200 Content:{}|
 |Error Response|Code: 500|
-|Notes||
+|Notes| Update user information|
 
 |          |               |
 |----------|:-------------:|
@@ -68,9 +69,9 @@ Before start you need to have **[Git](https://git-scm.com/)**, **[Node JS](https
 |URL|/api/user/auth|
 |Method	|POST|
 |URL Parameters	|Required:<br>Body: `email: string, password: string`|
-|Success Response|Code: 200 Content:{}|
+|Success Response|Code: 200<br>Content:{<br>docId: string,<br>id: string,<br>name: string,<br>email: string,<br>password: string,<br>URL: string,<br>description: string<br>}|
 |Error Response|Code: 500|
-|Notes||
+|Notes| Response contain information about user|
 
 |          |               |
 |----------|:-------------:|
@@ -78,9 +79,9 @@ Before start you need to have **[Git](https://git-scm.com/)**, **[Node JS](https
 |URL|/api/user/avatar|
 |Method	|POST|
 |URL Parameters	|Required:<br>Body: `file: file`|
-|Success Response|Code: 200 Content:{}|
+|Success Response|Code: 200<br> Content:{<br>downloadURL: string,<br>}|
 |Error Response|Code: 500|
-|Notes||
+|Notes| Upload avatar image to firebase storage and contain in response URL of image |
 
 |          |               |
 |----------|:-------------:|
@@ -108,7 +109,7 @@ Before start you need to have **[Git](https://git-scm.com/)**, **[Node JS](https
 |URL|/api/messages|
 |Method	|GET|
 |URL Parameters	|Required:<br>Query: `groupChatId: string`|
-|Success Response|Code: 200 Content:{}|
+|Success Response|Code: 200<br>Content:[{<br>_id: string,<br>createdAt: string,<br>idFrom: string,<br>idTo: string,<br>text: string,<br>user: {<br>_id: string,<br>avatar: string,<br>name: string,<br>},<br>}]|
 |Error Response|Code: 500|
 |Notes||
 
