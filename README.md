@@ -69,7 +69,7 @@ Before start you need to have **[Git](https://git-scm.com/)**, **[Node JS](https
 |URL|/api/user/auth|
 |Method	|POST|
 |URL Parameters	|Required:<br>Body: `email: string, password: string`|
-|Success Response|Code: 200<br>Content:{<br>docId: string,<br>id: string,<br>name: string,<br>email: string,<br>password: string,<br>URL: string,<br>description: string<br>}|
+|Success Response|Code: 200<br>Content:{<br>docId: string,<br>id: string,<br>name: string,<br>email: string,<br>password: string,<br>URL: string,<br>description: string,<br>passCode: string,<br>safeCode: string,<br>}|
 |Error Response|Code: 500|
 |Notes| Response contain information about user|
 
