@@ -8,10 +8,10 @@ router.get('/', async (req, res) => {
     try {
         const result = await db.collection(messagesCollection).doc(req.query.groupChatId)
             .collection(req.query.groupChatId)
-            .onSnapshot((snapshot) => {
-                return snapshot.docChanges().filter((change) => change.type === 'added').map((change) => change.doc.data());
-                },
-            );
+            .get()
+            .then(result => {
+                return result.docChanges().filter((change) => change.type === 'added').map((change) => change.doc.data());
+            });
         return res.status(200).json(result);
     } catch (error) {
         return res.status(500).send(error);
