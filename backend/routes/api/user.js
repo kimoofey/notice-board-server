@@ -1,5 +1,6 @@
 const express = require('express');
 const {v4: uuidv4} = require('uuid');
+const validator = require("email-validator");
 const router = express.Router();
 const firebase = require('../../config/firebase');
 const admin = require('../../config/firebaseAdmin');
@@ -135,8 +136,20 @@ router.post('/avatar', async (req, res) => {
 
 /* Auth for user*/
 router.post('/auth', async (req, res) => {
+    const {body} = req;
+    if (!validator.validate(body.email)) {
+        return res.status(500).send({
+            "code": "auth/invalid-email",
+            "message": "The email address is badly formatted."
+        });
+    }
+    if (body.password.length === 0) {
+        return res.status(500).send({
+            "code": "auth/wrong-password",
+            "message": "The password is invalid or the user does not have a password."
+        });
+    }
     try {
-        const {body} = req;
         const result = await firebase.auth().signInWithEmailAndPassword(body.email, body.password);
         const user = await admin.firestore().collection('users')
             .where('id', '==', result.user.uid)
