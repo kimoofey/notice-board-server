@@ -113,12 +113,12 @@ router.get('/messages', async (req, res) => {
 router.post('/avatar', async (req, res) => {
     try {
         if (req.files === null) {
-            return res.status(400).json({msg: 'No file uploaded'});
+            throw new Error('No file uploaded');
         }
         const file = req.files.file;
         file.mv(`${__dirname}/../../build/static//media/${file.name}`, error => {
             if (error) {
-                return res.status(500).send(error);
+                throw new Error(error);
             }
         });
         const uuid = uuidv4();
