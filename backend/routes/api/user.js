@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 /* Create user */
 router.post('/', async (req, res) => {
     try {
-        const {body: {email, password, nickname}} = req;
+        const {body: {email, password, nickname, passCode, safeCode}} = req;
         const userRecord = await admin.auth().createUser({
             email,
             password,
@@ -38,15 +38,17 @@ router.post('/', async (req, res) => {
             URL: '',
             description: '',
             messages: [],
+            passCode: passCode,
+            safeCode: safeCode,
         });
         return res.status(200).json({
             id: userRecord.uid,
             name: nickname,
-            email: email,
-            password: password,
             URL: '',
             description: '',
             docId: docRef.id,
+            passCode: passCode,
+            safeCode: safeCode,
         });
     } catch (error) {
         return res.status(500).send(error);
