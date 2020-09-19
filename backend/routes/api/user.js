@@ -1,6 +1,7 @@
 const express = require('express');
 const {v4: uuidv4} = require('uuid');
 const validator = require("email-validator");
+const fs = require('fs');
 const router = express.Router();
 const firebase = require('../../config/firebase');
 const admin = require('../../config/firebaseAdmin');
@@ -70,6 +71,12 @@ router.put('/', async (req, res) => {
         if (req.body.description) {
             data.description = req.body.description;
         }
+        if (req.body.passCode) {
+            data.passCode = req.body.passCode;
+        }
+        if (req.body.safeCode) {
+            data.safeCode = req.body.safeCode;
+        }
         const response = await docRef.update(data);
         return res.status(200).json(response);
     } catch (error) {
@@ -116,13 +123,8 @@ router.post('/avatar', async (req, res) => {
             throw new Error('No file uploaded');
         }
         const file = req.files.file;
-        file.mv(`${__dirname}/../../build/static//media/${file.name}`, error => {
-            if (error) {
-                throw new Error(error);
-            }
-        });
         const uuid = uuidv4();
-        const bucket = await admin.storage().bucket().upload(`${__dirname}/../../build/static//media/${file.name}`, {
+        const bucket = await admin.storage().bucket().upload(file.name, {
             gzip: true,
             metadata: {
                 cacheControl: 'public, max-age=31536000',
@@ -130,6 +132,7 @@ router.post('/avatar', async (req, res) => {
             },
         });
         const downloadURL = `https://firebasestorage.googleapis.com/v0/b/${'testing-chat-10f25.appspot.com'}/o/${encodeURIComponent(file.name)}?alt=media&token=${uuid}`;
+        fs.unlinkSync(`./${file.name}`);
         return res.status(200).json({downloadURL: downloadURL});
     } catch (error) {
         return res.status(500).json({msg: 'Server error'});
