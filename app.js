@@ -6,6 +6,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+const helmet = require('helmet');
 const indexRouter = require('./backend/routes');
 const signup = require('./backend/routes/api/user');
 const messages = require('./backend/routes/api/messages');
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 app.set('views', path.join(__dirname, 'backend/views'));
 app.set('view engine', 'pug');
 
+app.use(helmet());
 app.use(logger('dev'));
 app.use(fileUpload());
 // for parsing application/json
